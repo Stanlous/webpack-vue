@@ -1,0 +1,21 @@
+# Folders to ignore
+node_modules
+public
+dist
+
+# Numerous always-ignore extensions
+*.lock
+
+# OS or Editor folders
+.DS_Store
+._*
+.cache
+.project
+.settings
+.tmproj
+.vscode
+*.esproj
+*.sublime-project
+*.sublime-workspace
+nbproject
+thumbs.db
