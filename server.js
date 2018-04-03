@@ -8,8 +8,8 @@ const IS_PRODUCTION = process.env.NODE_ENV == 'production'
 console.log('IS_PRODUCTION:', IS_PRODUCTION)
 
 const app = express();
-const devConfig = require('./config/webpack.dev.js')
-const prodConfig = require('./config/webpack.prod.js')
+const devConfig = require('./config/webpack/webpack.dev.js')
+const prodConfig = require('./config/webpack/webpack.prod.js')
 const config = IS_PRODUCTION ? prodConfig : devConfig
 const compiler = webpack(config)
 

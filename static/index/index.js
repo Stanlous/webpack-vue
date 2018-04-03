@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { printMe } from './print.js';
-import commonModule from './common-module.js'
+import { printMe } from './lib/print.js';
+import commonModule from './lib/common-module.js'
 import Vue from 'vue'
 import index from './index.vue'
 

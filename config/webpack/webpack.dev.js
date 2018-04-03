@@ -4,11 +4,23 @@ const common = require('./webpack.common.js')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const { getEntries, isArray } = require('./util')
-const { DIST_ROOT, STATIC_ROOT } = require('./config')
+const { getEntries, isArray } = require('../util')
+const { DIST_ROOT, STATIC_ROOT } = require('../config')
 const entry = getEntries({ 
   production: false 
 })
+
+// enble HMR
+Object.keys(entry).forEach((name) => {
+  let value = entry[name]
+  if (typeof value === 'string') {
+    entry[name] = [value, hotMiddlewareScript]
+  }
+  if (isArray(value)) {
+    entry[name] = value.concat(hotMiddlewareScript)
+  }
+})
+
 
 const devConfig = {
   entry,
@@ -27,21 +39,7 @@ const devConfig = {
   ]
 }
 
-const mergeConfig = merge(common, devConfig)
-
-// enble HMR
-Object.keys(entry).forEach((name) => {
-  let value = entry[name]
-  if (typeof value === 'string') {
-    entry[name] = [value, hotMiddlewareScript]
-  }
-  if (isArray(value)) {
-    entry[name] = value.concat(hotMiddlewareScript)
-  }
-})
-
-module.exports = mergeConfig
-
+module.exports = merge(common, devConfig)
 
 
 function htmlPlugin() {

@@ -6,13 +6,13 @@
 </template>
 
 <script>
-  import component from './component.vue'
+  import component from './component/component.vue'
 
   export default {
     name: 'test',
     data: () => {
       return {
-        d: '12123213'
+        d: 'another'
       }
     },
     created () {

@@ -6,13 +6,13 @@
 </template>
 
 <script>
-  import component from './component.vue'
+  import component from './component/component.vue'
 
   export default {
     name: 'test',
     data: () => {
       return {
-        d: '12123213'
+        d: '123'
       }
     },
     created () {
@@ -25,8 +25,7 @@
 </script>
 
 <style lang="stylus">
-  rem(px)
-    px * 1rem
+  @import '~common/define.styl'
   .index-vue 
     color red
     font-size rem(10)

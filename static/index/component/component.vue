@@ -14,8 +14,10 @@
 </script>
 
 <style lang="stylus">
+  @import '~common/define.styl'
   @import '~index/index.styl'
-  .component-vue
-    font-size rem(10)
+  .component
+    font-size rem(2)
     box-sizing border-box
+    background url('../img/background.png')
 </style>

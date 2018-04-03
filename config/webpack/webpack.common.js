@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const IS_PRODUCTION = process.env.NODE_ENV == 'production'
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
-const config = require('./config')
+const config = require('../config')
 const vueConfig = require('./vue-loader.conf.js')
 const { DIST_ROOT, STATIC_ROOT, PROJECT_ROOT } = config
 
