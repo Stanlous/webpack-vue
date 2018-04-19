@@ -4,17 +4,17 @@ const config = require('../../../config/config')
 const { DIST_ROOT } = config
 const entries = require(`${DIST_ROOT}/.entries.json`)
 
-class TemplateController extends Controller {
+class templateController extends Controller {
   async index() {
     const { ctx } = this
     let template
-    template = await renderTemplate.call(this, ctx.state.common.templateName)
+    template = await renderTemplate(ctx.state.common.templateName)
     ctx.type = 'text/html'
     ctx.body = template
   }
 }
 
-module.exports = TemplateController
+module.exports = templateController
 
 function renderTemplate(name) {
   const filepath = `${DIST_ROOT}/${entries[name]}`
@@ -24,6 +24,6 @@ function renderTemplate(name) {
       return data
     })
     .catch((err) => {
-      this.app.error('ERR_IO', err)
+      console.log(err)
     })
 }

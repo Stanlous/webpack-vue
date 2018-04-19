@@ -1,60 +1,45 @@
-const routes = require('./routes.js')
+const routes = require('./route')
 const { camelize, r, fail } = require('./util.js')
 const STR_GET = 'get'
 const KEY_MIDDLEWARE_NAME = Symbol('kails:middleware-name')
 const path = require('path')
 
 module.exports = app => {
-  const { router, controller } = app
+  const { router } = app
   Object.keys(routes).forEach((location) => {
     const [method, pathname] = splitLocation(location)
-    const el = routes[location]
     let {
       middlewares = [],
       action,
-      template
-    } = el
+      template,
+      controller
+    } = routes[location]
 
-    if (!template && !action) {
-      fail(`template or action is required for "${location}"`)
+    if (!template && !controller) {
+      fail(`template or controller is required for "${location}"`)
     }
-
     middlewares = getRawMiddlewares(middlewares, app)
-    
-    // What an ugly code written by myself! Any idea to make it better?
-    if (action && template) {
-      return applyActionTemplate(app, method, pathname, middlewares, action, template)
-    }
     if (action) {
-      return applyAction(app, method, pathname, middlewares, action)
+      middlewares.push(actionMiddleware(action, app.config.ACTION_ROOT))
     }
     if (template) {
-      return applyTemplate(app, method, pathname, middlewares, template)
+      middlewares.push(app.middleware.template(template))
     }
 
+    let controllerName, controllerMethod;
+    if (template) {
+      controllerName = 'template'
+      controllerMethod = 'index'
+    } else {
+      [controllerName, controllerMethod] = controller.split('.').map(x => x.trim())
+    }
+
+    generateRouter(app, method, pathname, middlewares, controllerName, controllerMethod)
   })
 }
 
-function applyAction (app, method, pathname, middlewares, action) {
-  middlewares.push(actionMiddleware(action, app.config.ACTION_ROOT))
-  app.router[method](pathname, ...middlewares, app.controller.action.index)
-}
-
-function applyActionTemplate (app, method, pathname, middlewares, action, template) {
-  middlewares.push(actionMiddleware(action, app.config.ACTION_ROOT))
-  applyTemplate(app, method, pathname, middlewares, template)
-}
-
-function applyTemplate (app, method, pathname, middlewares, template) {
-  middlewares.push(templateMiddleware(template))
-  app.router.get(pathname, ...middlewares, app.controller.template.index)
-}
-
-function templateMiddleware (template) {
-  return async (ctx, next) => {
-    ctx.state.common.templateName = template
-    await next()
-  }
+function generateRouter (app, method, pathname, middlewares, controllerName, controllerMethod) {
+  app.router[method](pathname, ...middlewares, app.controller[controllerName][controllerMethod])
 }
 
 function actionMiddleware (action, actionRoot) {
@@ -68,13 +53,16 @@ function actionMiddleware (action, actionRoot) {
       //---------TODO
       this.app.emit('error', e)
     }
-    await next()
+    return next()
   }
 }
 
 function getRawMiddlewares (middlewares, app) {
   return middlewares.map((name) => {
     let mid = app.middlewares[camelize(name)]
+    if (!mid) {
+      fail(`Middleware '${name}' not exists.`)
+    }
     return typeof mid === 'function'
       ? mid()
       : mid.default()

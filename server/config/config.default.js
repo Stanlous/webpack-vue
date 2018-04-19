@@ -11,5 +11,9 @@ module.exports = {
   static: {
     prefix: '/app',
     dir: DIST_ROOT
+  },
+  // egg-error
+  error: {
+    client: {} // tell egg to add one `egg-error` instanse
   }
 }

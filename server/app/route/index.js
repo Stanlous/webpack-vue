@@ -2,7 +2,10 @@
 module.exports = {
   // index
   'GET /': {
-    template: 'index.html'
+    middlewares: [
+      // 'oauth'
+    ],
+    template: 'another.html'
   },
 
   // another
@@ -12,7 +15,15 @@ module.exports = {
 
   // authorize
   'GET /authorize': {
+    middlewares: [
+      // 'oauth'
+    ],
     template: 'index.html'
   },
 
+  'POST /access_token': {
+    controller: 'accessToken.index'
+  }
+
 }
+
