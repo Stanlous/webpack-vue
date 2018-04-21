@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development node server.js",
-    "build": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development egg-bin dev --baseDir ./server",
+    "build": "NODE_ENV=production node build.js",
     "server": "node server.js",
     "egg-dev": "egg-bin dev --baseDir ./server"
   },
@@ -16,6 +16,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "egg-bin": "^4.6.3",
+    "egg-webpack": "^4.1.1",
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
@@ -23,7 +24,11 @@
     "hash-content-html-webpack-plugin": "^1.1.0",
     "hasha": "^3.0.0",
     "html-loader": "^0.5.5",
+    "html-webpack-harddisk-plugin": "^0.2.0",
     "html-webpack-plugin": "^3.0.6",
+    "koa-webpack-dev-middleware": "^2.0.2",
+    "koa-webpack-hot-middleware": "^1.0.3",
+    "opn": "^5.3.0",
     "style-loader": "^0.20.3",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
@@ -34,11 +39,7 @@
     "webpack-cli": "^2.0.12",
     "webpack-dev-middleware": "^3.0.1",
     "webpack-dev-server": "^3.1.1",
-    "webpack-hot-middleware": "^2.21.2",
-    "egg-webpack": "^4.1.1",
-    "html-webpack-harddisk-plugin": "^0.2.0",
-    "koa-webpack-dev-middleware": "^2.0.2",
-    "koa-webpack-hot-middleware": "^1.0.3"
+    "webpack-hot-middleware": "^2.21.2"
   },
   "dependencies": {
     "egg": "^2.6.0",
