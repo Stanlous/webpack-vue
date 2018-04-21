@@ -2,7 +2,7 @@ const Controller = require('egg').Controller
 const fs = require('fs-extra')
 const config = require('../../../config/config')
 const { DIST_ROOT } = config
-const entries = require(`${DIST_ROOT}/.entries.json`)
+// const entries = require(`${DIST_ROOT}/.entries.json`)
 
 class templateController extends Controller {
   async index() {

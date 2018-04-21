@@ -6,13 +6,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const config = require('../config')
 const vueConfig = require('./vue-loader.conf.js')
-const { DIST_ROOT, STATIC_ROOT, PROJECT_ROOT } = config
+const { DIST_ROOT, STATIC_ROOT, PROJECT_ROOT, PUBLIC_PATH } = config
 
 
 module.exports = {
   output: {
     path: DIST_ROOT,
-    publicPath: '/app'
+    publicPath: PUBLIC_PATH
   },
   module: {
     rules: [

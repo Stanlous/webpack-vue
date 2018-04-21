@@ -29,12 +29,17 @@ if (IS_PRODUCTION) {
       return
     }
 
-
   })
 }
 
 app.use(webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath
+  publicPath: config.output.publicPath,
+  quiet: true,
+  writeToDisk: (filepath) => {
+    console.log(filepath)
+    return false
+    return !/\.json$/.test(filepath)
+  }
 }))
 
 app.use(webpackHotMiddleware(compiler))

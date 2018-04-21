@@ -5,7 +5,7 @@ module.exports = {
     middlewares: [
       // 'oauth'
     ],
-    template: 'another.html'
+    template: 'index.html'
   },
 
   // another

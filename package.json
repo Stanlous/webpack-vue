@@ -34,7 +34,11 @@
     "webpack-cli": "^2.0.12",
     "webpack-dev-middleware": "^3.0.1",
     "webpack-dev-server": "^3.1.1",
-    "webpack-hot-middleware": "^2.21.2"
+    "webpack-hot-middleware": "^2.21.2",
+    "egg-webpack": "^4.1.1",
+    "html-webpack-harddisk-plugin": "^0.2.0",
+    "koa-webpack-dev-middleware": "^2.0.2",
+    "koa-webpack-hot-middleware": "^1.0.3"
   },
   "dependencies": {
     "egg": "^2.6.0",

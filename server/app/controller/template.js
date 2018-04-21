@@ -2,7 +2,7 @@ const Controller = require('egg').Controller
 const fs = require('fs-extra')
 const config = require('../../../config/config')
 const { DIST_ROOT } = config
-const entries = require(`${DIST_ROOT}/.entries.json`)
+// const entries = require(`${DIST_ROOT}/.entries.json`)
 
 class TemplateController extends Controller {
   async index() {
@@ -17,7 +17,9 @@ class TemplateController extends Controller {
 module.exports = TemplateController
 
 function renderTemplate(name) {
-  const filepath = `${DIST_ROOT}/${entries[name]}`
+  const filepath = process.env.NODE_ENV == 'production'
+    ? `${DIST_ROOT}/${require(`${DIST_ROOT}/.entries.json`)[name]}`
+    : `${DIST_ROOT}/${name}`
   return fs
     .readFile(filepath)
     .then((data) => {
