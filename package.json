@@ -1,5 +1,5 @@
 {
-  "name": "webpack-project",
+  "name": "webpack-vue-egg",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,9 +8,9 @@
     "start": "npm run build && npm run server",
     "build": "NODE_ENV=production node builder/build.js",
     "server": "npm run server-is-started && npm run restart-server || npm run start-server",
-    "server-is-started": "pm2 show server -s",
-    "start-server": "NODE_ENV=production pm2 start server/start.js --name=server",
-    "restart-server": "NODE_ENV=production pm2 restart server --update-env"
+    "server-is-started": "pm2 show egg-server -s",
+    "start-server": "NODE_ENV=production pm2 start server/start.js --name=egg-server",
+    "restart-server": "NODE_ENV=production pm2 restart egg-server --update-env"
   },
   "author": "",
   "license": "ISC",
