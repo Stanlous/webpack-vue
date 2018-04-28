@@ -8,10 +8,10 @@ module.exports = {
   // ACTION_ROOT: path.join(__dirname, '../app/action'),
 
   // egg-static: static server
-  // static: { 
-  //   prefix: '/app',
-  //   dir: DIST_ROOT
-  // },
+  static: { 
+    prefix: PUBLIC_PATH,
+    dir: DIST_ROOT
+  },
   
   // egg-error
   error: {

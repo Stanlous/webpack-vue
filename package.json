@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development egg-bin dev --baseDir ./server",
-    "build": "NODE_ENV=production node build.js",
-    "server": "node server.js",
-    "egg-dev": "egg-bin dev --baseDir ./server"
+    "start": "npm run build && npm run server",
+    "build": "NODE_ENV=production node builder/build.js",
+    "server": "npm run server-is-started && npm run restart-server || npm run start-server",
+    "server-is-started": "pm2 show server -s",
+    "start-server": "NODE_ENV=production pm2 start server/start.js --name=server",
+    "restart-server": "NODE_ENV=production pm2 restart server --update-env"
   },
   "author": "",
   "license": "ISC",
@@ -39,7 +42,8 @@
     "webpack-cli": "^2.0.12",
     "webpack-dev-middleware": "^3.0.1",
     "webpack-dev-server": "^3.1.1",
-    "webpack-hot-middleware": "^2.21.2"
+    "webpack-hot-middleware": "^2.21.2",
+    "webpack-merge": "^4.1.2"
   },
   "dependencies": {
     "egg": "^2.6.0",
