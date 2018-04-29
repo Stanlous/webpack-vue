@@ -1,0 +1,17 @@
+{
+  "name": "egg-error",
+  "version": "1.0.4",
+  "description": "egg-error",
+  "scripts": {},
+  "keywords": [
+    "egg-error"
+  ],
+  "engines": {
+    "node": ">=4"
+  },
+  "author": "packages",
+  "license": "MIT",
+  "eggPlugin": {
+    "name": "error"
+  }
+}
