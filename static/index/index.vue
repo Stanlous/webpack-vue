@@ -7,6 +7,7 @@
 
 <script>
   import component from './component/component.vue'
+  import module from '@/module/index.js'
 
   export default {
     name: 'test',
@@ -16,7 +17,7 @@
       }
     },
     created () {
-      console.log(1234)
+      module()
     },
     components: {
       'another-component': component
@@ -31,4 +32,5 @@
     font-size rem(10)
   .vue
     color blue
+    clearfix()
 </style>

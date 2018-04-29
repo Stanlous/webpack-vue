@@ -31,7 +31,7 @@ module.exports = {
             ]
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpg|gif|ttf|woff)$/,
         use: [
           'file-loader'
         ]
@@ -72,6 +72,15 @@ module.exports = {
       root: PROJECT_ROOT
     }),
     new FriendlyErrorsWebpackPlugin(),
+    // use nib for stylus
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        stylus: {
+          use: [require('nib')()],
+          import: ['~nib/lib/nib/index.styl']
+        }
+      }
+    })
   ],
 
   resolve: {
@@ -86,6 +95,8 @@ module.exports = {
     // and there will be an error.
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
+      // usage: require('@/module/index.js')
+      '@': STATIC_ROOT
     }
   }
 }
