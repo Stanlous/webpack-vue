@@ -9,13 +9,13 @@ module.exports = (app) => {
   const compiler = webpack(devConfig)
   app.beforeStart(async () => {
     let opened = false
-    compiler.hooks.done.tapAsync('nothing', (compiler, callback) => {
+    compiler.plugin('done', (compiler, callback) => {
       if (opened) {
-        return callback()
+        return callback && callback()
       }
       opened = true
       open(`http://localhost:${app.config.cluster.listen.port}`)
-      callback()
+      callback && callback()
     })
     app.use(webpackDevMiddleware(compiler, {
       publicPath: devConfig.output.publicPath

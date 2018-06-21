@@ -3,8 +3,14 @@ const { STATIC_ROOT, DIST_ROOT } = config
 const devPages = require(`${STATIC_ROOT}/pages-dev.js`)
 const pages = require(`${STATIC_ROOT}/pages.js`)
 const testPages = require(`${STATIC_ROOT}/pages-test.js`)
+const code = require('code-stringify')
+const webpack = require('webpack');
 
 exports.getEntries = ({ production }) => {
+  return addBabelPolyfill(exports.entries({ production }))
+}
+
+exports.entries = ({ production }) => {
   if (production) {
     return distEntries(pages)
   }
@@ -31,7 +37,15 @@ exports.getEntries = ({ production }) => {
   function distEntries(e) {
     let entry = {}
     Object.keys(e).forEach((name) => {
-      entry[name] = `${STATIC_ROOT}/${e[name]}`
+      let val = e[name]
+      if (isArray(val)) {
+        entry[name] = val.map((path) => {
+          return `${STATIC_ROOT}/${path}`
+        })
+      }
+      if (isString(val)) {
+        entry[name] = [`${STATIC_ROOT}/${val}`]
+      }
     })
     return entry
   }
@@ -41,10 +55,32 @@ exports.isArray = isArray
 
 exports.fail = fail
 
+exports.envPlugin = (env) => {
+  const merged = {}
+  Object.keys(env).forEach(key => {
+    // Use `process.env` prior to `env`
+    const value = process.env[key] || env[key]
+    merged[key] = code(value)
+  })
+  return new webpack.DefinePlugin({
+    'process.env': merged
+  }) 
+}
+
+function addBabelPolyfill (entries) {
+  Object.keys(entries).forEach((name) => {
+    entries[name].unshift('babel-polyfill')
+  })
+  return entries
+}
 
 function fail(message) {
   message && console.error(message);
   process.exit(1)
+}
+
+function isString (s) {
+  return typeof s === 'string'
 }
 
 function isArray(a) {

@@ -1,6 +1,7 @@
 const path = require('path');
 // const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
-const hotMiddlewareScript = 'webpack-hot-middleware/client';
+// const hotMiddlewareScript = 'webpack-hot-middleware/client';
+const hotMiddlewareScript = './builder/dev-client'
 const common = require('./webpack.common.js')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -15,21 +16,16 @@ const entry = getEntries({
 // enble HMR
 Object.keys(entry).forEach((name) => {
   let value = entry[name]
-  if (typeof value === 'string') {
-    entry[name] = [value, hotMiddlewareScript]
-  }
-  if (isArray(value)) {
-    entry[name] = value.concat(hotMiddlewareScript)
-  }
+  entry[name] = value.concat(hotMiddlewareScript)
 })
-
+console.log('-----',entry)
 
 const devConfig = {
   entry,
   output: {
     filename: '[name].js',
   },
-  mode: 'development',
+  // mode: 'development',
   // devServer: {
   //   contentBase: './dist',
   //   hot: true

@@ -16,7 +16,7 @@ const ContentHashPlugin = require('hash-content-html-webpack-plugin')
 
 const prodConfig = {
   entry,
-  mode: 'production',
+  // mode: 'production',
   output: {
     filename: 'js/[name].[chunkhash].js',
   },
@@ -40,7 +40,7 @@ function htmlPlugin() {
   return Object.keys(entry).map((name) => {
     return new HtmlWebpackPlugin({
       filename: `${DIST_ROOT}/${name}.[contenthash].html`,
-      chunks: ['vendor', name],
+      chunks: [name],
       inject: true,
       template: `${STATIC_ROOT}/base.html`,
     })

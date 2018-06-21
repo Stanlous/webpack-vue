@@ -46,26 +46,38 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueConfig
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: [
+          STATIC_ROOT,
+          `${PROJECT_ROOT}/node_modules`,
+          `${PROJECT_ROOT}/builder`
+        ],
+        exclude: [
+          `${PROJECT_ROOT}/node_modules/eventsource-polyfill`
+        ]
       }
     ]
   },
 
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        // commons: {
-        //   name: "commons",
-        //   chunks: "initial",
-        //   minChunks: 2
-        // }
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendor",
-          chunks: "all"
-        }
-      }
-    }
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       // commons: {
+  //       //   name: "commons",
+  //       //   chunks: "initial",
+  //       //   minChunks: 2
+  //       // }
+  //       commons: {
+  //         test: /[\\/]node_modules[\\/]/,
+  //         name: "vendor",
+  //         chunks: "all"
+  //       }
+  //     }
+  //   }
+  // },
 
   plugins: [
     new CleanWebpackPlugin([DIST_ROOT], {
