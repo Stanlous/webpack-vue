@@ -11,7 +11,7 @@
     "server-is-started": "pm2 show egg-server -s",
     "start-server": "NODE_ENV=production pm2 start server/start.js --name=egg-server",
     "restart-server": "NODE_ENV=production pm2 restart egg-server --update-env",
-    "production-test": "npm run build && npm run server"
+    "production": "npm run build && npm run server"
   },
   "author": "",
   "license": "ISC",

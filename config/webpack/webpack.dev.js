@@ -18,7 +18,6 @@ Object.keys(entry).forEach((name) => {
   let value = entry[name]
   entry[name] = value.concat(hotMiddlewareScript)
 })
-console.log('-----',entry)
 
 const devConfig = {
   entry,

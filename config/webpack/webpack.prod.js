@@ -21,6 +21,9 @@ const prodConfig = {
     filename: 'js/[name].[chunkhash].js',
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
     new UglifyJSPlugin(),
     new webpack.HashedModuleIdsPlugin(),
     new ExtractTextPlugin({
